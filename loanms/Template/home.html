@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bank Transaction</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h2>Welcome to USA Bank</h2>
+
+    </div>
+
+</div>
+{{name1}}
+<img src = "{% static 'usa.png'%}">
+<<h1> </h1>
+
+
+</body>
+<body>
+<h3>{{name}}</h3>
+</body>
+<body>      </body>
+<body>
+{{name2}}
+
+</body>
+
+{% block title %}Create User{% endblock %}
+
+{% block content %}
+  <h2>Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+
+    <a class="btn btn-primary" href="/signup">Create a User</a>
+  </form>
+
+    <h3>or Log in</h3>
+  <form method="post">
+    {% csrf_token %}
+    <a class="btn btn-primary" id="right-panel-link" href="/login">Log In</a>
+  </form>
+{% endblock %}
+
+</html>

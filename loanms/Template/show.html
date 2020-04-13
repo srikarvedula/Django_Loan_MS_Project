@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MDM Table Records</title>
+     {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+<body>
+<table class="table table-striped table-bordered table-sm">
+    <thead class="thead-dark">
+    <tr>
+        <th>Loan MDM Lookup ID</th>
+        <th>Credit Score Minimum </th>
+        <th>Credit Score Maximum</th>
+        <th>Loan Amount Minimum</th>
+        <th>Loan Amount Maximum</th>
+        <th>Interest Rate Pct</th>
+        <th>Duration Months</th>
+        <th>Effective From Date</th>
+        <th>Effective To Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for i in l_data_show %}
+        <tr>
+          <th scope="row">{{ i.loan_mdm_lookup_id }}</th>
+          <td>{{ i.CreditScoreMin }}</td>
+          <td>{{ i.CreditScoreMax }}</td>
+          <td>{{ i.LoanAmountMin }}</td>
+          <td>{{ i.LoanAmountMax }}</td>
+          <td>{{ i.InterestRatePct }}</td>
+          <td>{{ i.DurationMonths }}</td>
+          <td>{{ i.eff_from_date }}</td>
+          <td>{{ i.eff_to_date }}</td>
+            <td>
+                  <a href="{{ home_url }}/bankmgr/first/loanmdm/edit/{{ i.loan_mdm_lookup_id }}"><span class="glyphicon glyphicon-pencil" >Edit </span></a>
+            <a href="{{ home_url }}/bankmgr/first/loanmdm/delete/{{ i.loan_mdm_lookup_id }}">Delete</a>
+            </td>
+        </tr>
+    {% endfor %}
+
+
+
+
+
+    </tbody>
+</table>
+<br>
+<br>
+<center><a href="{{ home_url }}/bankmgr/first/loanmdm/add_new_form" class="btn btn-primary">Add New Record</a></center>
+
+<a class="btn btn-primary" href="{{ home_url }}/first/">Go Back</a>
+</body>
+</html>

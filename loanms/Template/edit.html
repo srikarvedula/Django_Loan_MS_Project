@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+<body>
+
+<form method="POST" class="post-form" action="http://127.0.0.1:8000/bankmgr/first/loanmdm/update/">
+
+        {% csrf_token %}
+    <div class="container">
+<br>
+    <div class="form-group row">
+    <label class="col-sm-1 col-form-label"></label>
+    <div class="col-sm-4">
+    <h3>Update Details</h3>
+    </div>
+  </div>
+    <div class="form-group row">
+
+    <label class="col-sm-2 col-form-label">Loan Lookup Id</label>
+
+    <div class="col-sm-4">
+        <input type="text" name="loan_mdm_lookup_id" id="id_loan_mdm_lookup_id" required maxlength="20" value="{{ loan_mdm_lookup_id }}"/>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Credit Score Min</label>
+    <div class="col-sm-4">
+        <input type="text" name="CreditScoreMin" id="id_CreditScoreMin" required maxlength="100" value="{{ CreditScoreMin }}" />
+    </div>
+  </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Credit Score Max</label>
+    <div class="col-sm-4">
+        <input type="text" name="CreditScoreMax" id="id_CreditScoreMax" required maxlength="254" value="{{ CreditScoreMax }}" />
+    </div>
+  </div>
+    <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Loan Amount Minimum</label>
+    <div class="col-sm-4">
+        <input type="text" name="LoanAmountMin" id="id_LoanAmountMin" required maxlength="15" value="{{ LoanAmountMin }}" />
+    </div>
+  </div>
+        <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Loan Amount Maximum</label>
+    <div class="col-sm-4">
+        <input type="text" name="LoanAmountMax" id="id_LoanAmountMax" required maxlength="20" value="{{ LoanAmountMax }}"/>
+    </div>
+  </div>
+        <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Interest Rate Pct</label>
+    <div class="col-sm-4">
+        <input type="text" name="InterestRatePct" id="id_InterestRatePct" required maxlength="20" value="{{ InterestRatePct }}"/>
+    </div>
+  </div>
+        <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Duration Months</label>
+    <div class="col-sm-4">
+        <input type="text" name="DurationMonths" id="id_DurationMonths" required maxlength="20" value="{{ DurationMonths }}"/>
+    </div>
+  </div>
+        <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Effective From Date</label>
+    <div class="col-sm-4">
+        <input type="date" name="eff_from_date" id="id_eff_to_date" required maxlength="20" value="{{ eff_from_date }}"/>
+    </div>
+  </div>
+        <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Effective To Date</label>
+    <div class="col-sm-4">
+        <input type="date" name="eff_to_date" id="id_eff_from_date" required maxlength="20" value="{{ eff_to_date }}"/>
+    </div>
+  </div>
+    <div class="form-group row">
+    <label class="col-sm-1 col-form-label"></label>
+    <div class="col-sm-4">
+    <button type="submit" class="btn btn-success">Update</button>
+    </div>
+  </div>
+    </div>
+</form>
+</body>
+</html>
