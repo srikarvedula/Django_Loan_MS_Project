@@ -4,12 +4,10 @@ from django.contrib import messages
 from django.urls import reverse
 from mysql.connector import errors
 import logging
-from loanms.Connpool import getConn,db
 import pymysql as sql
 
 def upload_csv(request):
     data = {}
-    getConn()
     if "GET" == request.method:
         return render(request, "upload_testing.html", data)
     try:

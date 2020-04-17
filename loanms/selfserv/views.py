@@ -7,9 +7,8 @@ import pymysql as sql
 l_data_show = []
 def showTable():
     l_data_show.clear()
-    getConn()
     conn = sql.connect(host='localhost', port=3306, user='root', password='Dirtydula1$', db='loan_proj')
-    cursor = conn.cursor()
+    cursor = db.cursor()
     cursor.execute("select * from loan_table_lookup;")
     for loan_mdm_lookup_id, CreditScoreMin, CreditScoreMax, LoanAmountMin, LoanAmountMax, InterestRatePct, DurationMonths, eff_from_date, eff_to_date in cursor.fetchall():
         l_data_show.append({"loan_mdm_lookup_id": loan_mdm_lookup_id

@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
-from django.template import Template, Context, loader
-from django.http import HttpResponse, JsonResponse
 from mysql.connector import errors
-from loanms.Connpool import getConn,db,db2,db3,db4
+from loanms.Connpool import db
 from .forms import AddRecordForm
 import pymysql
 
@@ -13,8 +11,7 @@ l_data_show=[]
 
 def showTable():
     l_data_show.clear()
-    getConn()
-    cursor = conn.cursor()
+    cursor = db.cursor()
     cursor.execute("select * from loan_table_lookup;")
     for loan_mdm_lookup_id, CreditScoreMin, CreditScoreMax, LoanAmountMin, LoanAmountMax, InterestRatePct, DurationMonths, eff_from_date, eff_to_date in cursor.fetchall():
         l_data_show.append({"loan_mdm_lookup_id": loan_mdm_lookup_id
@@ -29,8 +26,7 @@ def showTable():
     cursor.close()
 
 def syncTableDict():
-    getConn()
-    cursor = conn.cursor()
+    cursor = db.cursor()
     cursor.execute("select * from loan_table_lookup;")
     for loan_mdm_lookup_id, CreditScoreMin, CreditScoreMax, LoanAmountMin, LoanAmountMax, InterestRatePct, DurationMonths, eff_from_date, eff_to_date in cursor.fetchall():
         l_data[loan_mdm_lookup_id]={"loan_mdm_lookup_id": loan_mdm_lookup_id
@@ -54,7 +50,6 @@ def edit(request,loan_mdm_lookup_id):
     return render(request, 'edit.html',SingleRowData)
 
 def update(request):
-    getConn()
     lookupid = request.POST["loan_mdm_lookup_id"]
     creditscoremin = request.POST["CreditScoreMin"]
     creditscoremax = request.POST["CreditScoreMax"]
@@ -76,10 +71,10 @@ def update(request):
                                     , eff_to_date = '"""+str(efftodate)+"""'
                             where loan_mdm_lookup_id = """ + str(lookupid) + ';'
     try:
-        cursor = conn.cursor()
+        cursor = db.cursor()
         print(sql_update_query)
         cursor.execute(sql_update_query)
-        conn.commit()
+        db.commit()
     except errors.Error as e:
         print(e)
     finally:
@@ -87,16 +82,15 @@ def update(request):
     return redirect("http://127.0.0.1:8000/bankmgr/first/loanmdm")
 
 def delete(request,loan_mdm_lookup_id):
-    getConn()
     syncTableDict()
     try:
-        cursor = conn.cursor()
+        cursor = db.cursor()
         SingleRowData = l_data[loan_mdm_lookup_id]
         lookup_id = SingleRowData['loan_mdm_lookup_id']
         sql_delete_script='delete from loan_table_lookup where loan_mdm_lookup_id =' + str(lookup_id) + ';'
         print(sql_delete_script)
         cursor.execute(sql_delete_script)
-        conn.commit()
+        db.commit()
     except errors.Error as e:
         print(e)
     finally:
@@ -104,7 +98,6 @@ def delete(request,loan_mdm_lookup_id):
     return redirect("/bankmgr/first/loanmdm")
 
 def add_new_record(request):
-    getConn()
     if request.method == 'POST':
         print("Add Row Form submit")
         form = AddRecordForm(request.POST)
@@ -119,13 +112,13 @@ def add_new_record(request):
             efffromdate = form.cleaned_data.get("eff_from_date")
             efftodate = form.cleaned_data.get("eff_to_date")
             try:
-                cursor = conn.cursor()
+                cursor = db.cursor()
                 sql_script = 'insert into loan_table_lookup( loan_mdm_lookup_id, CreditScoreMin, CreditScoreMax, LoanAmountMin, LoanAmountMax, InterestRatePct, DurationMonths, eff_from_date, eff_to_date) VALUES'
                 row_str = str(lookupid) + "," + str(creditscoremin) + "," + str(creditscoremax) + "," + str(loanamtmin) + "," + str(loanamtmax) + "," + str(interestratepct) + "," + str(durationmonths) + "," + "str_to_date('" + efffromdate.strftime('%m/%d/%Y') + "','%m/%d/%Y')" + "," + "str_to_date('" + efftodate.strftime('%m/%d/%Y') + "','%m/%d/%Y')"
                 sql_insert_script = sql_script + "(" + row_str + ");"
                 print(sql_insert_script)
                 cursor.execute(sql_insert_script)
-                conn.commit()
+                db.commit()
             except errors.Error as e:
                 print(e)
             finally:

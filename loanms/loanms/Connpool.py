@@ -8,7 +8,7 @@ db = mysql.connector.connect(user='root',
                                  host='127.0.0.1',
                                  database='loan_proj',
                                  pool_name='LoanDBConnPool',
-                                 pool_size=6)
+                                 pool_size=10)
 
 db2 = mysql.connector.connect(pool_name='LoanDBConnPool')
 db3 = mysql.connector.connect(pool_name='LoanDBConnPool')
