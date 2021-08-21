@@ -5,7 +5,7 @@ from .forms import AddRecordForm
 import pymysql
 
 
-conn = pymysql.connect(host='localhost', port=3306, user='root', password='Dirtydula1$', db='loan_proj')
+conn = pymysql.connect(host='localhost', port=3306, user='root', password='yourpassword', db='loan_proj')
 l_data = {}
 l_data_show=[]
 
