@@ -4,7 +4,7 @@ import mysql.connector
 from mysql.connector import errors
 import time
 db = mysql.connector.connect(user='root',
-                                 password='Dirtydula1$',
+                                 password='yourpassword',
                                  host='127.0.0.1',
                                  database='loan_proj',
                                  pool_name='LoanDBConnPool',
